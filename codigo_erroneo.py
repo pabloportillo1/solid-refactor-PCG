@@ -1,10 +1,35 @@
 import json
+from abc import ABC, abstractmethod
 
 class User:
     def __init__(self, name, email, role):
         self.name = name
         self.email = email
         self.role = role
+
+class Formatter(ABC):
+
+    @abstractmethod
+    def format (self, data):
+        pass
+
+class TxtFormatter(Formatter):
+    def format (self, data):
+        result = ""
+        for user in data:
+            result = f"{user['name']} - {user['email']} - {user['role']}\n"
+        return result
+    
+class HtmlFormatter(Formatter):
+    def format(self, data):
+        html = "<html><body><ul>"
+        for user in data:
+            html += f"<li>{user['name']} ({user['email']}) ({user['role']}) </li>"
+        html += "</ul></body></html>"
+
+class JsonFormatter(Formatter):
+    def format(self, data):
+        return json.dumps(data, indent = 2)
             
 class GenerateReport:
     def __init__(self, users):
