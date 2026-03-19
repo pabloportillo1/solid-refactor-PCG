@@ -45,20 +45,21 @@ class GenerateReport:
             for user in self.users
         ]
 
-class ReportSystem:
-
-    def __init__(self, users):
-        self.users = users
-
-
+class FileSaver:
     def save_to_file(self, filename, content):
-        # Manejo directo de archivo (acoplamiento fuerte)
         with open(filename, 'w') as f:
             f.write(content)
 
+class EmailSender:
     def send_email(self, content):
-        # Simulación de envío de correo (responsabilidad extra)
+        # Simulación de envío de correo
         print(f"Sending email with content:\n{content}")
+
+
+class ReportSystem:
+
+    def __init__(self, users, formatter, file_saver, email_sender):
+        self.users = users
 
     def filter_admins(self):
         # Otra responsabilidad más
