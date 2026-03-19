@@ -60,12 +60,23 @@ class ReportSystem:
 
     def __init__(self, users, formatter, file_saver, email_sender):
         self.users = users
+        self.formatter = formatter
+        self.file_saver = file_saver
+        self.email_sender = email_sender
 
-    def filter_admins(self):
-        # Otra responsabilidad más
-        return [user for user in self.users if user.role == "admin"]
+class ReportService:
 
-    def print_report(self, content):
-        print("----- REPORT -----")
-        print(content)
-        print("------------------")
+    def __init__(self, generator, formatter, file_saver, email_sender):
+        self.generator = generator
+        self.formatter = formatter
+        self.file_saver = file_saver
+        self.email_sender = email_sender
+
+    def process(self, filename):
+        data = self.generator.generate_data()
+        formatted = self.formatter.format(data)
+
+        self.file_saver.save(filename, formatted)
+        self.email_sender.send(formatted)
+
+        return formatted
