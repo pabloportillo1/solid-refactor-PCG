@@ -55,16 +55,7 @@ class EmailSender:
         # Simulación de envío de correo
         print(f"Sending email with content:\n{content}")
 
-
 class ReportSystem:
-
-    def __init__(self, users, formatter, file_saver, email_sender):
-        self.users = users
-        self.formatter = formatter
-        self.file_saver = file_saver
-        self.email_sender = email_sender
-
-class ReportService:
 
     def __init__(self, generator, formatter, file_saver, email_sender):
         self.generator = generator
